@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Orange Events - Birthday Event Planner</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <style id="app-style">
+    :root {
+      --orange-primary: #FF7F2A;
+      --orange-secondary: #FFA64D;
+      --orange-light: #FFE0CC;
+      --dark-text: #333333;
+      --light-text: #FFFFFF;
+      --gray-bg: #F8F9FA;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--dark-text);
+      overflow-x: hidden;
+    }
+
+    .logo-text {
+      font-family: 'Dancing Script', cursive;
+      color: var(--orange-primary);
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
+
+    .navbar {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 15px 0;
+    }
+
+    .navbar-nav .nav-link {
+      font-weight: 500;
+      margin: 0 10px;
+      color: var(--dark-text);
+      transition: color 0.3s;
+    }
+
+    .navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+      color: var(--orange-primary);
+    }
+
+    .btn-orange {
+      background-color: var(--orange-primary);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 25px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn-orange:hover {
+      background-color: var(--orange-secondary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(255, 127, 42, 0.3);
+    }
+
+    .btn-outline-orange {
+      border: 2px solid var(--orange-primary);
+      color: var(--orange-primary);
+      border-radius: 30px;
+      padding: 8px 25px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn-outline-orange:hover {
+      background-color: var(--orange-primary);
+      color: white;
+    }
+
+    .hero-section {
+      background: linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('https://source.unsplash.com/1600x900/?birthday,celebration') no-repeat center center/cover;
+      padding: 120px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255,127,42,0.2) 0%, rgba(255,166,77,0.1) 100%);
+      z-index: -1;
+    }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--dark-text);
+    }
+
+    .hero-content h1 span {
+      color: var(--orange-primary);
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      color: #666;
+      max-width: 600px;
+    }
+
+    .hero-img {
+      position: relative;
+    }
+
+    .hero-img img {
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .floating-card {
+      position: absolute;
+      background: white;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      z-index: 10;
+    }
+
+    .floating-card-1 {
+      bottom: -20px;
+      left: -30px;
+    }
+
+    .floating-card-2 {
+      top: 30px;
+      right: -20px;
+    }
+
+    .floating-icon {
+      background-color: var(--orange-light);
+      color: var(--orange-primary);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .floating-text h5 {
+      font-size: 1rem;
+      margin-bottom: 0;
+    }
+
+    .floating-text p {
+      font-size: 0.8rem;
+      margin-bottom: 0;
+      color: #777;
+    }
+
+    .section-title {
+      margin-bottom: 60px;
+      position: relative;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .section-title span {
+      color: var(--orange-primary);
+    }
+
+    .section-title p {
+      max-width: 600px;
+      margin: 0 auto;
+      color: #777;
+    }
+
+    .features-section {
+      padding: 100px 0;
+      background-color: var(--gray-bg);
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      transition: all 0.3s;
+      height: 100%;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .feature-icon {
+      background-color: var(--orange-light);
+      color: var(--orange-primary);
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .feature-card h4 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .feature-card p {
+      color: #777;
+      margin-bottom: 0;
+    }
+
+    .packages-section {
+      padding: 100px 0;
+    }
+
+    .package-card {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      transition: all 0.3s;
+      height: 100%;
+      background: white;
+      position: relative;
+    }
+
+    .package-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .package-img {
+      height: 400px;
+      overflow: hidden;
+    }
+
+    .package-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      transition: transform 0.5s;
+    }
+
+    .package-card:hover .package-img img {
+      transform: scale(1.1);
+    }
+
+    .package-content {
+      padding: 25px;
+    }
+
+    .package-price {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--orange-primary);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 30px;
+      font-weight: 600;
+    }
+
+    .package-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--dark-text);
+    }
+
+    .package-features {
+      margin-bottom: 20px;
+    }
+
+    .package-features li {
+      margin-bottom: 8px;
+      color: #666;
+    }
+
+    .package-features i {
+      color: var(--orange-primary);
+      margin-right: 8px;
+    }
+
+    .testimonials-section {
+      padding: 100px 0;
+      background-color: var(--gray-bg);
+    }
+
+    .testimonial-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      margin: 15px;
+    }
+
+    .testimonial-content {
+      position: relative;
+      padding: 0 20px;
+      margin-bottom: 20px;
+    }
+
+    .testimonial-content::before {
+      content: "\f10d";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--orange-light);
+      font-size: 1.5rem;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .testimonial-author img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .author-info h5 {
+      margin-bottom: 0;
+      font-weight: 600;
+    }
+
+    .author-info p {
+      margin-bottom: 0;
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    .rating {
+      color: #FFD700;
+      margin-bottom: 5px;
+    }
+
+    .contact-section {
+      padding: 100px 0;
+      background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://source.unsplash.com/1600x900/?confetti') no-repeat center center/cover;
+    }
+
+    .contact-card {
+      background: white;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .contact-card h3 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+
+    .contact-form .form-control {
+      border-radius: 10px;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+    }
+
+    .contact-info {
+      padding-left: 40px;
+    }
+
+    .contact-info h3 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+
+    .info-item {
+      display: flex;
+      margin-bottom: 25px;
+      align-items: flex-start;
+    }
+
+    .info-icon {
+      background-color: var(--orange-light);
+      color: var(--orange-primary);
+      min-width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-right: 15px;
+    }
+
+    .info-text h5 {
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .info-text p {
+      color: #777;
+      margin-bottom: 0;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .social-icons a {
+      background-color: var(--orange-light);
+      color: var(--orange-primary);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: all 0.3s;
+    }
+
+    .social-icons a:hover {
+      background-color: var(--orange-primary);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 60px 0 0;
+    }
+
+    .footer-logo {
+      color: white;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    .footer-logo span {
+      color: var(--orange-primary);
+    }
+
+    .footer-about p {
+      margin-bottom: 25px;
+      color: #ccc;
+    }
+
+    .footer-links h5 {
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .footer-links ul {
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 15px;
+    }
+
+    .footer-links a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--orange-primary);
+    }
+
+    .footer-contact li {
+      color: #ccc;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .footer-contact i {
+      color: var(--orange-primary);
+      margin-right: 10px;
+      margin-top: 5px;
+    }
+
+    .footer-bottom {
+      background-color: #222;
+      padding: 20px 0;
+      margin-top: 60px;
+    }
+
+    .footer-bottom p {
+      margin-bottom: 0;
+      color: #aaa;
+    }
+
+    .to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background-color: var(--orange-primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      z-index: 99;
+      opacity: 0;
+      transition: all 0.3s;
+      pointer-events: none;
+    }
+
+    .to-top.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .to-top:hover {
+      background-color: var(--orange-secondary);
+    }
+
+    .date-picker-group {
+      position: relative;
+    }
+
+    .date-picker-group .form-control {
+      padding-left: 40px;
+    }
+
+    .date-picker-group i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+    }
+
+    /* Animation elements */
+    .floating-balloons {
+      position: absolute;
+      width: 100px;
+      opacity: 0.8;
+      animation: float 7s ease-in-out infinite;
+    }
+
+    .balloon-1 {
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .balloon-2 {
+      top: 5%;
+      right: 10%;
+      animation-delay: 2s;
+    }
+
+    .balloon-3 {
+      bottom: 15%;
+      left: 5%;
+      animation-delay: 1s;
+    }
+
+    .balloon-4 {
+      bottom: 10%;
+      right: 5%;
+      animation-delay: 3s;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-20px) rotate(5deg);
+      }
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: var(--orange-primary);
+      opacity: 0.8;
+      animation: confetti-fall 8s linear infinite;
+    }
+
+    .confetti-1 { left: 10%; animation-delay: 0s; }
+    .confetti-2 { left: 20%; animation-delay: 1s; background-color: #FFD700; }
+    .confetti-3 { left: 30%; animation-delay: 2s; }
+    .confetti-4 { left: 40%; animation-delay: 3s; background-color: #FF4D4D; }
+    .confetti-5 { left: 50%; animation-delay: 4s; }
+    .confetti-6 { left: 60%; animation-delay: 5s; background-color: #4D79FF; }
+    .confetti-7 { left: 70%; animation-delay: 6s; }
+    .confetti-8 { left: 80%; animation-delay: 7s; background-color: #9933FF; }
+    .confetti-9 { left: 90%; animation-delay: 8s; }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+
+    /* Gallery */
+    .gallery-section {
+      padding: 100px 0;
+    }
+
+    .gallery-item {
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      height: 250px;
+      margin-bottom: 30px;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-overlay i {
+      color: white;
+      font-size: 2rem;
+    }
+
+    /* Modal */
+    .packages-modal .modal-header {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .packages-modal .modal-title {
+      color: var(--orange-primary);
+      font-weight: 600;
+    }
+
+    .packages-modal .modal-footer {
+      border-top: none;
+    }
+
+    .modal-image {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 991px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-img {
+        margin-top: 50px;
+      }
+      
+      .contact-info {
+        padding-left: 0;
+        margin-top: 50px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .hero-section {
+        padding: 80px 0;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+      
+      .feature-card, .package-card, .contact-card {
+        margin-bottom: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="javascript:void(0)">
+        <span class="logo-text">Orange Events</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#packages">Packages</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#gallery">Gallery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#testimonials">Reviews</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+        <a href="#contact" class="btn btn-orange ms-lg-4">Book Now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="home">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 hero-content" data-aos="fade-right">
+          <h1>Make Your Birthday <span>Memorable</span> with Orange Events</h1>
+          <p>We create unforgettable birthday experiences with creative themes, beautiful decorations, and personalized touches. Let us handle the details while you enjoy the celebration!</p>
+          <div class="d-flex gap-3">
+            <a href="#packages" class="btn btn-orange">Explore Packages</a>
+            <a href="#contact" class="btn btn-outline-orange">Contact Us</a>
+          </div>
+        </div>
+        <div class="col-lg-6 hero-img" data-aos="fade-left">
+          <img src="https://source.unsplash.com/800x600/?birthday,party" alt="Birthday Celebration" class="img-fluid rounded-4">
+          <div class="floating-card floating-card-1">
+            <div class="floating-icon">
+              <i class="fas fa-gift"></i>
+            </div>
+            <div class="floating-text">
+              <h5>Customized Themes</h5>
+              <p>Tailored to your preferences</p>
+            </div>
+          </div>
+          <div class="floating-card floating-card-2">
+            <div class="floating-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="floating-text">
+              <h5>Premium Experience</h5>
+              <p>Attention to every detail</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Decorative Elements -->
+    <div class="floating-balloons balloon-1">
+      <svg viewBox="0 0 50 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M25,10 C38.8,10 50,22.5 50,37.7 C50,53.9 38.8,70 25,70 C11.2,70 0,53.9 0,37.7 C0,22.5 11.2,10 25,10 Z" fill="#FF7F2A"/>
+        <path d="M25,70 L25,100" stroke="#FF7F2A" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="floating-balloons balloon-2">
+      <svg viewBox="0 0 50 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M25,10 C38.8,10 50,22.5 50,37.7 C50,53.9 38.8,70 25,70 C11.2,70 0,53.9 0,37.7 C0,22.5 11.2,10 25,10 Z" fill="#FFA64D"/>
+        <path d="M25,70 L25,100" stroke="#FFA64D" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="confetti confetti-1"></div>
+    <div class="confetti confetti-2"></div>
+    <div class="confetti confetti-3"></div>
+    <div class="confetti confetti-4"></div>
+    <div class="confetti confetti-5"></div>
+  </section>
+
+  <!-- Add after the Hero Section (before Features Section) -->
+  <section class="slider-section">
+    <div class="container">
+      <div class="section-title text-center" data-aos="fade-up">
+        <h2>Our <span>Gallery</span></h2>
+        <p>Browse through our beautiful decorations and setups for inspiration.</p>
+      </div>
+      <div class="row">
+        <div class="col-12" data-aos="fade-up">
+          <div id="imageSlider" class="carousel slide" data-bs-ride="carousel">
+            <!-- Carousel indicators -->
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#imageSlider" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#imageSlider" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#imageSlider" data-bs-slide-to="2" aria-label="Slide 3"></button>
+              <button type="button" data-bs-target="#imageSlider" data-bs-slide-to="3" aria-label="Slide 4"></button>
+              <button type="button" data-bs-target="#imageSlider" data-bs-slide-to="4" aria-label="Slide 5"></button>
+            </div>
+            
+            <!-- Carousel items -->
+            <div class="carousel-inner rounded-4">
+              <div class="carousel-item active">
+                <img src="Images/Decoration 6(kirshna).jpeg" class="d-block w-100" alt="Birthday Celebration">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Elegant Birthday Setup</h5>
+                  <p>Luxurious decorations for a memorable celebration</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="Images/Decoration butterfly1.jpeg" class="d-block w-100" alt="Birthday Party">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Colorful Themes</h5>
+                  <p>Vibrant and fun party decorations</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="Images/Decoration7(jungle).jpeg" class="d-block w-100" alt="Birthday Cake">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Beautiful Cake Designs</h5>
+                  <p>Custom cakes for your special day</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="Images/Decoration8(cocomelon).jpeg" class="d-block w-100" alt="Birthday Decoration">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Themed Decorations</h5>
+                  <p>Personalized themes for every celebration</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="Images/Decoration9(water).jpeg" class="d-block w-100" alt="Birthday Balloons">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Balloon Arrangements</h5>
+                  <p>Creative balloon displays and arches</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Carousel controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#imageSlider" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#imageSlider" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="container">
+      <div class="section-title text-center" data-aos="fade-up">
+        <h2>Why Choose <span>Orange Events</span></h2>
+        <p>We bring creativity, attention to detail, and a touch of magic to make your birthday celebration truly special.</p>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-palette"></i>
+            </div>
+            <h4>Creative Themes</h4>
+            <p>From classic elegance to themed extravaganzas, we craft the perfect atmosphere for your birthday celebration.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-gem"></i>
+            </div>
+            <h4>Premium Decorations</h4>
+            <p>We use high-quality decorations and attention to detail to transform your venue into a magical space.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-heart"></i>
+            </div>
+            <h4>Personalized Touch</h4>
+            <p>Every celebration is unique, and we ensure your birthday reflects your personality and preferences.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+            <h4>Full Planning Service</h4>
+            <p>From concept to execution, we handle all aspects of your birthday event so you can focus on enjoying it.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="500">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <h4>Exceptional Experience</h4>
+            <p>We strive to exceed expectations and create memorable moments that will be cherished for years.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="600">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-gifts"></i>
+            </div>
+            <h4>Special Add-ons</h4>
+            <p>Enhance your celebration with custom cakes, photo booths, entertainment, and more special touches.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Packages Section -->
+  <section class="packages-section" id="packages">
+    <div class="container">
+      <div class="section-title text-center" data-aos="fade-up">
+        <h2>Our Birthday <span>Packages</span></h2>
+        <p>Choose from our carefully curated birthday packages or let us create a custom celebration just for you.</p>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="package-card">
+            <div class="package-img">
+              <img src="Images/Package.jpeg" alt="Basic Package">
+            </div>
+            <div class="package-price">40000</div>
+            <div class="package-content">
+              <h3 class="package-title">Birthday Package</h3>
+              <ul class="package-features list-unstyled">
+                <li><i class="fas fa-check-circle"></i> Customized  decorations (balloons, banners)</li>
+                <li><i class="fas fa-check-circle"></i> Royal Entry</li>
+                <li><i class="fas fa-check-circle"></i> Snack Stalls</li>
+                <li><i class="fas fa-check-circle"></i>Magic Show</li>
+              </ul>
+              <button class="btn btn-orange w-100" data-bs-toggle="modal" data-bs-target="#packageModal1">View Details</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="package-card">
+            <div class="package-img">
+              <img src="Images/Package2.jpeg" alt="Luxury Package">
+            </div>
+            <div class="package-content">
+              <h3 class="package-title">STAllS WE PROVIDE</h3>
+              <ul class="package-features list-unstyled">
+                <li><i class="fas fa-check-circle"></i> Luxury decorations with premium materials</li>
+                <li><i class="fas fa-check-circle"></i> Custom backdrop and multiple photo areas</li>
+                <li><i class="fas fa-check-circle"></i> Provide Entertainment Stalls</li>
+                <li><i class="fas fa-check-circle"></i> Full event planning and coordination</li>
+              </ul>
+              <button class="btn btn-orange w-100" data-bs-toggle="modal" data-bs-target="#packageModal3">View Details</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="gallery-section" id="gallery">
+    <div class="container">
+      <div class="section-title text-center" data-aos="fade-up">
+        <h2>Event <span>Gallery</span></h2>
+        <p>Browse through our portfolio of past birthday celebrations to get inspired for your own special day.</p>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="gallery-item">
+            <img src="Images/Decoration butterfly1.jpeg" alt="Birthday Event">
+            <div class="gallery-overlay">
+              <i class="fas fa-search-plus"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="gallery-item">
+            <img src="Images/Decoration butterfly3.jpeg" alt="Birthday Event">
+            <div class="gallery-overlay">
+              <i class="fas fa-search-plus"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="gallery-item">
+            <img src="Images/Decortion 2.jpeg" alt="Birthday Event">
+            <div class="gallery-overlay">
+              <i class="fas fa-search-plus"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+          <div class="gallery-item">
+            <img src="Images/Decoration 4.jpeg" alt="Birthday Event">
+            <div class="gallery-overlay">
+              <i class="fas fa-search-plus"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+          <div class="gallery-item">
+            <img src="Images/Decoration 5.jpeg" alt="Birthday Event">
+            <div class="gallery-overlay">
+              <i class="fas fa-search-plus"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+          <div class="gallery-item">
+            <img src="Images/Decoration3.jpeg" alt="Birthday Event">
+            <div class="gallery-overlay">
+              <i class="fas fa-search-plus"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="container">
+      <div class="section-title text-center" data-aos="fade-up">
+        <h2>Client <span>Testimonials</span></h2>
+        <p>Hear from our satisfied clients about their experience with Orange Events.</p>
+      </div>
+      <div class="row testimonials-slider" data-aos="fade-up">
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="testimonial-card">
+            <div class="rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="testimonial-content">
+              <p>"Orange Events made my daughter's 1st birthday absolutely magical! The decorations were stunning, and they took care of every detail. It was stress-free for me and unforgettable for her."</p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-info">
+                <h5>-Lokesh</h5>
+                <p>My Daughter 1st Birthday  Celebration</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="testimonial-card">
+            <div class="rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="testimonial-content">
+              <p>"I can't thank Orange Events enough for creating such a wonderful 1st birthday for my daughter. The theme was executed perfectly, and all my guests were impressed. Worth every penny!"</p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-info">
+                <h5>-Roja</h5>
+                <p>My Son 1st Birthday celebrations</p>
+              </div>
+            </div>
+          </div>
+        </div>
+  </section>
+
+  <!-- Demo Video Section -->
+  <section class="demo-section" id="demo">
+    <div class="container">
+      <div class="section-title text-center" data-aos="fade-up">
+        <h2>Demo <span>Video</span></h2>
+        <p>Watch our short demonstration to see how we bring birthday celebrations to life!</p>
+      </div>
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto" data-aos="fade-up">
+          <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.1);"><iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" src="https://www.youtube.com/embed/UrgZed04C5A" title="Orange Events Vijayawada – Shorts Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen></iframe></div>
+          <div class="text-center mt-4">
+            <p class="mb-4">Experience the magic of our event planning and see how we can transform any space into a memorable celebration.</p>
+            <a href="#contact" class="btn btn-orange">Book Your Event Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="section-title text-center" data-aos="fade-up">
+        <h2>Contact <span>Us</span></h2>
+        <p>Ready to start planning your perfect birthday celebration? Get in touch with us today!</p>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 mx-auto" data-aos="fade-left">
+          <div class="contact-info">
+            <h3>Get In Touch</h3>
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="info-text">
+                <h5>Our Location</h5>
+                <p>New Rajiv Nagar,Paykapuram<br>Vijayawada,NTR DIstrict</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="fas fa-phone-alt"></i>
+              </div>
+              <div class="info-text">
+                <h5>Call Us</h5>
+                <p>8639004173<br>9398070738</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="info-text">
+                <h5>Email Us</h5>
+                <p>info@orangeevents.com<br>bookings@orangeevents.com</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="info-text">
+                <h5>Office Hours</h5>
+                <p>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 4:00 PM</p>
+              </div>
+            </div>
+            <div class="social-icons">
+              <a href="https://www.facebook.com/share/15vge41mTM/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://www.instagram.com/orangeevents_vijayawada?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fab fa-instagram"></i></a>
+              <a href="https://wa.me/8639004173" target="_blank"><i class="fab fa-whatsapp"></i></a>
+              <a href="https://www.youtube.com/@orangeeventsvijayawada1057" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="floating-balloons balloon-3">
+      <svg viewBox="0 0 50 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M25,10 C38.8,10 50,22.5 50,37.7 C50,53.9 38.8,70 25,70 C11.2,70 0,53.9 0,37.7 C0,22.5 11.2,10 25,10 Z" fill="#FF7F2A"/>
+        <path d="M25,70 L25,100" stroke="#FF7F2A" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="floating-balloons balloon-4">
+      <svg viewBox="0 0 50 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M25,10 C38.8,10 50,22.5 50,37.7 C50,53.9 38.8,70 25,70 C11.2,70 0,53.9 0,37.7 C0,22.5 11.2,10 25,10 Z" fill="#FFA64D"/>
+        <path d="M25,70 L25,100" stroke="#FFA64D" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="confetti confetti-6"></div>
+    <div class="confetti confetti-7"></div>
+    <div class="confetti confetti-8"></div>
+    <div class="confetti confetti-9"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-5">
+          <div class="footer-about">
+            <a href="javascript:void(0)" class="footer-logo">
+              <span class="logo-text">Orange Events</span>
+            </a>
+            <p>We specialize in creating unforgettable birthday celebrations that reflect your personality and exceed your expectations. Let us transform your special day into a magical experience.</p>
+            <div class="social-icons">
+              <a href="https://www.facebook.com/share/15vge41mTM/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://www.instagram.com/orangeevents_vijayawada?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fab fa-instagram"></i></a>
+              <a href="https://wa.me/8639004173" target="_blank"><i class="fab fa-whatsapp"></i></a>
+              <a href="https://www.youtube.com/@orangeeventsvijayawada1057" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-4 mb-5">
+          <div class="footer-links">
+            <h5>Quick Links</h5>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#packages">Packages</a></li>
+              <li><a href="#gallery">Gallery</a></li>
+              <li><a href="#testimonials">Testimonials</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-5">
+          <div class="footer-links">
+            <h5>Our Services</h5>
+            <ul>
+              <li><a href="javascript:void(0)">Birthday Decorations</a></li>
+              <li><a href="javascript:void(0)">Theme Development</a></li>
+              <li><a href="javascript:void(0)">Event Planning</a></li>
+              <li><a href="javascript:void(0)">Venue Coordination</a></li>
+              <li><a href="javascript:void(0)">Custom Add-ons</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-5">
+          <div class="footer-links">
+            <h5>Contact Info</h5>
+            <ul class="footer-contact">
+              <li><i class="fas fa-map-marker-alt"></i>OrangeEvents,New Rajiv Nagar,Vijayawada</li>
+              <li><i class="fas fa-phone-alt"></i>8639004173</li>
+              <li><i class="fab fa-instagram"></i>OrangeEvents<br>Amarawathi Events</li>
+              <li><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom text-center">
+      <div class="container">
+        <p>&copy; 2025 Orange Events. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top button -->
+  <a href="#" class="to-top" id="toTop">
+    <i class="fas fa-chevron-up"></i>
+  </a>
+
+  <!-- Package Modals -->
+  <div class="modal fade packages-modal" id="packageModal1" tabindex="-1" aria-labelledby="packageModal1Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="packageModal1Label">Citrus Sparkle Package</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img src="Images/Package.jpeg" alt="Basic Package" class="modal-image">
+          <h4>Package Details - 40,000</h4>
+          <p>Our package is perfect for intimate birthday celebrations that still want that special touch. This package includes:</p>
+          <ul>
+            <li>Theme-based decorations with balloons, banners</li>
+            <li>Customized welcome sign with birthday person's name</li>
+            <li>Balloon arch or backdrop for photo opportunities</li>
+            <li> setup and event coordination</li>
+            <li>Basic props for photo opportunities</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <a href="#contact" class="btn btn-orange" data-bs-dismiss="modal">Book This Package</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade packages-modal" id="packageModal3" tabindex="-1" aria-labelledby="packageModal3Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="packageModal3Label">Stalls We Provide</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img src="Images/stalls1.jpeg" alt="stalls" class="modal-image">
+        </div>
+        <div class="modal-body">
+          <img src="Images/stalls2.jpeg" alt="stalls" class="modal-image">
+        </div>
+        <div class="modal-body">
+          <img src="Images/stalls3.jpeg" alt="stalls" class="modal-image">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <a href="#contact" class="btn btn-orange" data-bs-dismiss="modal">Book This Package</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script id="app-script">
+    // Initialize AOS (Animate on Scroll)
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+
+    // Back to top button functionality
+    const toTop = document.getElementById('toTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        toTop.classList.add('active');
+      } else {
+        toTop.classList.remove('active');
+      }
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Update active navigation link based on scroll position
+    function updateNavActiveState() {
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        const sectionHeight = section.clientHeight;
+        const sectionId = section.getAttribute('id');
+        
+        if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${sectionId}`) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateNavActiveState);
+
+    // Package selection in contact form
+    document.querySelectorAll('[data-bs-dismiss="modal"]').forEach(button => {
+      if (button.classList.contains('btn-orange')) {
+        button.addEventListener('click', function() {
+          const modalId = this.closest('.modal').id;
+          const packageSelect = document.getElementById('package');
+          
+          if (modalId === 'packageModal1') {
+            packageSelect.value = 'basic';
+          } else if (modalId === 'packageModal2') {
+            packageSelect.value = 'premium';
+          } else if (modalId === 'packageModal3') {
+            packageSelect.value = 'luxury';
+          }
+        });
+      }
+    });
+
+    // Handle form submission
+    document.getElementById('contact-form') && document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const eventDate = document.getElementById('event-date').value;
+      const packageType = document.getElementById('package').value;
+      const message = document.getElementById('message').value;
+      
+      // Save to local storage
+      const bookingData = {
+        name,
+        email,
+        phone,
+        eventDate,
+        packageType,
+        message,
+        bookingDate: new Date().toISOString()
+      };
+      
+      // Check if there are existing bookings
+      let userBookings = JSON.parse(localStorage.getItem('orangeEventsBookings')) || [];
+      userBookings.push(bookingData);
+      
+      localStorage.setItem('orangeEventsBookings', JSON.stringify(userBookings));
+      
+      // Display success message and reset form
+      alert('Thank you for your booking request! We will contact you shortly to discuss your event details.');
+      this.reset();
+    });
+
+    // Check if user has previous selections in local storage and populate form
+    function populateFormFromStorage() {
+      const userBookings = JSON.parse(localStorage.getItem('orangeEventsBookings'));
+      if (userBookings && userBookings.length > 0) {
+        const lastBooking = userBookings[userBookings.length - 1];
+        
+        // Populate only name and email for convenience
+        document.getElementById('name') && (document.getElementById('name').value = lastBooking.name);
+        document.getElementById('email') && (document.getElementById('email').value = lastBooking.email);
+        document.getElementById('phone') && (document.getElementById('phone').value = lastBooking.phone);
+      }
+    }
+
+    // Call on page load
+    document.addEventListener('DOMContentLoaded', populateFormFromStorage);
+
+    // Initialize image slider with autoplay
+    const imageSlider = new bootstrap.Carousel(document.getElementById('imageSlider'), {
+      interval: 5000,
+      wrap: true,
+      keyboard: true
+    });
+
+    // Pause carousel on hover
+    document.getElementById('imageSlider').addEventListener('mouseover', function() {
+      imageSlider.pause();
+    });
+    document.getElementById('imageSlider').addEventListener('mouseout', function() {
+      imageSlider.cycle();
+    });
+  </script>
+</body>
+</html>
